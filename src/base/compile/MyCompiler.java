@@ -1,6 +1,6 @@
-package compile;
+package base.compile;
 
-import classLoader.MyClassLoader;
+import base.classLoader.MyClassLoader;
 
 import javax.tools.JavaCompiler;
 import javax.tools.SimpleJavaFileObject;
@@ -20,7 +20,7 @@ import java.util.List;
  * 信息描述：
  */
 public class MyCompiler {
-    static String outDir = System.getProperty("user.dir") + "\\src";
+    public static String outDir = System.getProperty("user.dir") + "\\src";
 
     public static Class<?> compile(String name, String content) {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -51,17 +51,16 @@ public class MyCompiler {
                 e.printStackTrace();
             }*/
         }
-
         return null;
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        String content = "package play; public class Test{ public static void main(String[] args){System.out.println(\"compile test.\");} }";
+        String content = "package play; public class Test{ public static void main(String[] args){System.out.println(\"base.compile test.\");} }";
         Class<?> cls = compile("play.Test", content);
 
 
         MyClassLoader myClassLoader = new MyClassLoader(outDir);
-        Class c = myClassLoader.loadClass("play.Test");
+        Class c = myClassLoader.loadClass("playcache.Test");
         try {
             Method method = c.getMethod("main", String[].class);
             method.invoke(null, new Object[]{new String[]{}});

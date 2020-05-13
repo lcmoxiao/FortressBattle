@@ -1,6 +1,8 @@
-package classLoader;
+package base.classLoader;
 
 import java.io.*;
+
+import static base.compile.MyCompiler.outDir;
 
 public class MyClassLoader extends ClassLoader {
 
@@ -8,7 +10,7 @@ public class MyClassLoader extends ClassLoader {
     private final String classpath;
 
     public MyClassLoader() {
-        this.classpath = System.getProperty("user.dir") + "\\src";
+        this.classpath = outDir;
     }
 
     public MyClassLoader(String classpath) {

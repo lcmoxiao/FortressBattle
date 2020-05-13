@@ -1,7 +1,7 @@
-package mservlet;
+package web.mservlet;
 
-import classLoader.MyClassLoader;
-import compile.MyCompiler;
+import base.classLoader.MyClassLoader;
+import base.compile.MyCompiler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,12 +17,12 @@ public class TestServlet extends HttpServlet {
         String opt = req.getParameter("opt");
         String content = req.getParameter("content");
         if (opt.equals("0")) {
-            //String content = "package play; public class Test{ public static void main(String[] args){System.out.println(\"compile test.\");} }";
+            //String content = "package play; public class Test{ public static void main(String[] args){System.out.println(\"base.compile test.\");} }";
             Class<?> cls = MyCompiler.compile("play.Test", content);
         } else {
             MyClassLoader myClassLoader = new MyClassLoader();
             try {
-                Class c = myClassLoader.loadClass("play.Test");
+                Class c = myClassLoader.loadClass("playcache.Test");
                 Method method = c.getMethod("main", String[].class);
                 method.invoke(null, new Object[]{new String[]{}});
                 req.setAttribute("resp", "成功运行真棒");
